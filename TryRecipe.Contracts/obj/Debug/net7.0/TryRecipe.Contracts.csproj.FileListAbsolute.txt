@@ -1,0 +1,12 @@
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/bin/Debug/net7.0/TryRecipe.Contracts.deps.json
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/bin/Debug/net7.0/TryRecipe.Contracts.dll
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/bin/Debug/net7.0/TryRecipe.Contracts.pdb
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.csproj.AssemblyReference.cache
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.AssemblyInfoInputs.cache
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.AssemblyInfo.cs
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.csproj.CoreCompileInputs.cache
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.dll
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/refint/TryRecipe.Contracts.dll
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/TryRecipe.Contracts.pdb
+/Users/jlim/Desktop/Apps/TryRecipe/TryRecipe.Contracts/obj/Debug/net7.0/ref/TryRecipe.Contracts.dll

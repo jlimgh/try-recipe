@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "TryRecipe/1.0.0": {
+        "dependencies": {
+          "TryRecipe.Contracts": "1.0.0"
+        },
+        "runtime": {
+          "TryRecipe.dll": {}
+        }
+      },
+      "TryRecipe.Contracts/1.0.0": {
+        "runtime": {
+          "TryRecipe.Contracts.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TryRecipe/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TryRecipe.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
