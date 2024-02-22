@@ -1,4 +1,6 @@
-POST http://localhost:5083/recipes
+@id=00000000-0000-0000-0000-000000000000
+
+PUT http://localhost:5083/recipes/{{id}}
 Content-Type: application/json
 
 {

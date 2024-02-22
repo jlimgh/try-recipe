@@ -12,19 +12,19 @@ public class RecipesController : ControllerBase
         return Ok(request);
     }
 
-    [HttpGet("/recipes/{id: guid}")]
+    [HttpGet("/recipes/{id:guid}")]
     public IActionResult GetRecipe(Guid id)
     {
         return Ok(id);
     }
 
-    [HttpPut("/recipes/{id: guid}")]
+    [HttpPut("/recipes/{id:guid}")]
     public IActionResult UpsertRecipe(Guid id, UpsertRecipeRequest request)
     {
         return Ok(request);
     }
 
-    [HttpDelete("/recipes/{id: guid}")]
+    [HttpDelete("/recipes/{id:guid}")]
     public IActionResult DeleteRecipe(Guid id)
     {
         return Ok(id);
