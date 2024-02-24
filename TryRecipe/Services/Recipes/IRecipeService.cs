@@ -1,10 +1,11 @@
-﻿using TryRecipe.Models;
+﻿using ErrorOr;
+using TryRecipe.Models;
 
 namespace TryRecipe.Services.Recipes;
 public interface IRecipeService
 {
-    void CreateRecipe(Recipe recipe);
-    void DeleteRecipe(Guid id);
-    Recipe GetRecipe(Guid id);
-    void UpsertRecipe(Recipe recipe);
+    ErrorOr<Created>CreateRecipe(Recipe recipe);
+    ErrorOr<Deleted> DeleteRecipe(Guid id);
+    ErrorOr<Recipe> GetRecipe(Guid id);
+    ErrorOr<UpsertedRecipe> UpsertRecipe(Recipe recipe);
 }

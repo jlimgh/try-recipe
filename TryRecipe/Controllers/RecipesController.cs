@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ErrorOr;
+using Microsoft.AspNetCore.Mvc;
 using TryRecipe.Contracts.Recipe;
 using TryRecipe.Models;
+using TryRecipe.ServiceErrors;
 using TryRecipe.Services.Recipes;
 
 namespace TryRecipe.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class RecipesController : ControllerBase
+public class RecipesController : ApiController
 {
     private readonly IRecipeService _recipeService;
 
@@ -30,41 +30,24 @@ public class RecipesController : ControllerBase
             request.Sweet
         );
 
-        _recipeService.CreateRecipe(recipe);
+        ErrorOr<Created> createRecipeResult = _recipeService.CreateRecipe(recipe);
 
-        var response = new RecipeReponse(
-            recipe.Id,
-            recipe.Name,
-            recipe.Description,
-            recipe.StartDateTime,
-            recipe.EndDateTime,
-            recipe.LastModifiedDateTime,
-            recipe.Savory,
-            recipe.Sweet
-        );
-        return CreatedAtAction(
-            actionName: nameof(GetRecipe),
-            routeValues: new { id = recipe.Id },
-            value: response
+        return createRecipeResult.Match(
+            created => CreatedAtGetRecipe(recipe),
+            errors => Problem(errors)
         );
     }
 
     [HttpGet("{id:guid}")]
     public IActionResult GetRecipe(Guid id)
     {
-        Recipe recipe = _recipeService.GetRecipe(id);
+        ErrorOr<Recipe> getRecipeResult = _recipeService.GetRecipe(id);
 
-        var response = new RecipeReponse(
-            recipe.Id,
-            recipe.Name,
-            recipe.Description,
-            recipe.StartDateTime,
-            recipe.EndDateTime,
-            recipe.LastModifiedDateTime,
-            recipe.Savory,
-            recipe.Sweet
+        return getRecipeResult.Match(
+            breakfast => Ok(MapRecipeResponse(breakfast)),
+            errors => Problem(errors)
         );
-        return Ok(response);
+
     }
 
     [HttpPut("{id:guid}")]
@@ -81,16 +64,43 @@ public class RecipesController : ControllerBase
             request.Sweet
         );
 
-        _recipeService.UpsertRecipe(recipe);
-
-        return NoContent();
+        ErrorOr<UpsertedRecipe> upsertedResult = _recipeService.UpsertRecipe(recipe);
+        return upsertedResult.Match(
+            upserted => upserted.isNewlyCreated ? CreatedAtGetRecipe(recipe) : NoContent(),
+            errors => Problem(errors)
+        );
     }
 
     [HttpDelete("{id:guid}")]
     public IActionResult DeleteRecipe(Guid id)
     {
-        _recipeService.DeleteRecipe(id);
-        return NoContent();
+        ErrorOr<Deleted> deletedResult = _recipeService.DeleteRecipe(id);
+        return deletedResult.Match(
+            deleted => NoContent(),
+            errors => Problem(errors)
+        );
+    }
+
+    private static RecipeReponse MapRecipeResponse(Recipe recipe)
+    {
+        return new RecipeReponse(
+                    recipe.Id,
+                    recipe.Name,
+                    recipe.Description,
+                    recipe.StartDateTime,
+                    recipe.EndDateTime,
+                    recipe.LastModifiedDateTime,
+                    recipe.Savory,
+                    recipe.Sweet
+                );
+    }
+
+    private CreatedAtActionResult CreatedAtGetRecipe(Recipe recipe)
+    {
+        return CreatedAtAction(
+            actionName: nameof(GetRecipe),
+            routeValues: new { id = recipe.Id },
+            value: MapRecipeResponse(recipe));
     }
 
 }
