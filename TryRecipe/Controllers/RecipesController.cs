@@ -19,16 +19,13 @@ public class RecipesController : ApiController
     [HttpPost()]
     public IActionResult CreateRecipe(CreateRecipeRequest request)
     {
-        var recipe = new Recipe(
-            Guid.NewGuid(),
-            request.Name,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Savory,
-            request.Sweet
-        );
+        ErrorOr<Recipe> requestToRecipeResult = Recipe.From(request);
+
+        if (requestToRecipeResult.IsError) {
+            return Problem(requestToRecipeResult.Errors);
+        }
+
+        var recipe = requestToRecipeResult.Value;
 
         ErrorOr<Created> createRecipeResult = _recipeService.CreateRecipe(recipe);
 
@@ -53,16 +50,13 @@ public class RecipesController : ApiController
     [HttpPut("{id:guid}")]
     public IActionResult UpsertRecipe(Guid id, UpsertRecipeRequest request)
     {
-        var recipe = new Recipe(
-            id,
-            request.Name,
-            request.Description,
-            request.StartDateTime,
-            request.EndDateTime,
-            DateTime.UtcNow,
-            request.Savory,
-            request.Sweet
-        );
+        ErrorOr<Recipe> requestToRecipeResult = Recipe.From(id, request);
+
+        if (requestToRecipeResult.IsError) {
+            return Problem(requestToRecipeResult.Errors);
+        }
+
+        var recipe = requestToRecipeResult.Value;
 
         ErrorOr<UpsertedRecipe> upsertedResult = _recipeService.UpsertRecipe(recipe);
         return upsertedResult.Match(
